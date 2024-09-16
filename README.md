@@ -22,3 +22,13 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## Foi adicionado a Gem Devise na branch main
+Com ela foi adicionado algumas features:
+
+* database_authenticatable
+* registerable
+* recoverable
+* rememberable
+* validatable
+* encrypted_password
