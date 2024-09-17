@@ -33,11 +33,11 @@ post2 = Post.create!(content: "Este é um post de rascunho.", published: false)
 post3 = Post.create!(content: "Outro post interessante.", published: true)
 
 
-Comment.create!(content: "Ótimo post!", user_id: user1.id, commentable: post1)
-Comment.create!(content: "Concordo com esse conteúdo!", user_id: user3.id, commentable: post1)
-Comment.create!(content: "Esse post precisa de mais detalhes.", user_id: user3.id, commentable: post2)
+# Comment.create!(content: "Ótimo post!", user_id: user1.id, commentable: post1)
+# Comment.create!(content: "Concordo com esse conteúdo!", user_id: user3.id, commentable: post1)
+# Comment.create!(content: "Esse post precisa de mais detalhes.", user_id: user3.id, commentable: post2)
 
 
-Comment.create!(content: "Adorei esse post.", user_id: user2.id, commentable: post3)
+# Comment.create!(content: "Adorei esse post.", user_id: user2.id, commentable: post3)
 
 puts "Seeds criados com sucesso!"
