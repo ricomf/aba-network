@@ -15,8 +15,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_15_194312) do
   enable_extension "plpgsql"
 
   create_table "post_users", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "user_id"
+    t.integer "post_id", null: false
+    t.integer "user_id", null: false
     t.boolean "owner_boolean"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
