@@ -11,8 +11,10 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 8 }
   validate :password_complexity
 
- 
   enum role: { user: 0, moderator: 1 }
+
+  has_many :post_users, dependent: :destroy
+  has_many :posts, through: :post_users
 
   private
 
