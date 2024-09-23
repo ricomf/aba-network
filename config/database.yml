@@ -2,10 +2,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: aba_network
-  password: 1345
-  port: 5433
-  host: localhost
+  
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
