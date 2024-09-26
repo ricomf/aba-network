@@ -59,6 +59,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_15_220611) do
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
+    create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "cnpj"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "company_domains", force: :cascade do |t|
+    t.integer "company_id", null: false
+    t.integer "domain_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "domains", force: :cascade do |t|
+    t.string "domain_url"
+    t.integer "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "post_users", force: :cascade do |t|
     t.bigint "post_id", null: false
