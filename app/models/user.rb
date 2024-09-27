@@ -19,9 +19,10 @@ class User < ApplicationRecord
   private
 
   def email_domain_check
-    allowed_domain = "exemplo.com"
-    unless email.ends_with?("@#{allowed_domain}")
-      errors.add(:email, "deve ser de um domínio válido (#{allowed_domain})")
+    allowed_domains = Domain.pluck(:domain_url)
+
+    unless allowed_domains.any? { |domain| email.ends_with?("@#{domain}") }
+      errors.add(:email, "deve ser de um domínio válido (#{allowed_domains.join(', ')})")
     end
   end
   
