@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_27_124742) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_27_212557) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +48,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_124742) do
     t.bigint "record_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "post_id", null: false
+    t.index ["post_id"], name: "index_attachments_on_post_id"
     t.index ["record_type", "record_id"], name: "index_attachments_on_record"
   end
 
@@ -57,7 +60,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_124742) do
     t.string "commentable_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "post_id", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -82,14 +87,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_124742) do
   end
 
   create_table "post_users", force: :cascade do |t|
-    t.bigint "post_id", null: false
-    t.bigint "user_id", null: false
+    t.integer "post_id", null: false
+    t.integer "user_id", null: false
     t.boolean "owner_boolean"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_post_users_on_post_id"
-    t.index ["user_id", "post_id"], name: "index_post_users_on_user_id_and_post_id", unique: true
-    t.index ["user_id"], name: "index_post_users_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -112,8 +114,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_124742) do
     t.datetime "updated_at", null: false
     t.bigint "company_id", null: false
     t.index ["company_id"], name: "index_users_on_company_id"
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.json "tokens"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -121,4 +127,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_124742) do
   add_foreign_key "post_users", "posts"
   add_foreign_key "post_users", "users"
   add_foreign_key "users", "companies"
+  add_foreign_key "attachments", "posts"
+  add_foreign_key "comments", "posts"
 end
