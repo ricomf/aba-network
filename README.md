@@ -1,34 +1,58 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Dependências do Projeto
 
-Things you may want to cover:
+Este projeto utiliza várias gems para fornecer diferentes funcionalidades. Abaixo está uma explicação detalhada das principais gems incluídas no arquivo `Gemfile`:
 
-* Ruby version
+### Ruby Version
 
-* System dependencies
+- **Ruby 3.2.1**: O projeto está configurado para rodar na versão `3.2.1` do Ruby. Certifique-se de que esta versão está instalada no seu ambiente.
 
-* Configuration
+### Gems Utilizadas
 
-* Database creation
+- **Rails (~> 7.0.8, >= 7.0.8.4)**: 
+  - Framework web completo que fornece uma arquitetura MVC (Model-View-Controller), bem como uma variedade de ferramentas para construir APIs, sistemas web e aplicações modernas.
 
-* Database initialization
+- **pg (~> 1.1)**: 
+  - Adaptação do PostgreSQL para ActiveRecord. Esta gem permite que o Rails se comunique com o banco de dados PostgreSQL.
 
-* How to run the test suite
+- **Puma (~> 5.0)**: 
+  - Servidor de aplicação usado por padrão no Rails. Ele é projetado para ser concorrente, rápido e adequado para ambientes de produção.
 
-* Services (job queues, cache servers, search engines, etc.)
+- **tzinfo-data**: 
+  - Inclui dados de fuso horário para ambientes Windows, que não fornecem esses dados nativamente. Necessário apenas ao rodar o projeto em sistemas Windows.
 
-* Deployment instructions
+- **Bootsnap**: 
+  - Acelera o tempo de inicialização da aplicação através de caching. É especialmente útil em projetos grandes para reduzir a latência ao iniciar o Rails.
 
-* ...
+### Gems para Desenvolvimento e Teste
 
-## Foi adicionado a Gem Devise na branch main
-Com ela foi adicionado algumas features:
+Estas gems são carregadas apenas no ambiente de desenvolvimento e teste:
 
-* database_authenticatable: Responsável por autenticar o usuário usando e-mail e senha. Armazena a senha criptografada no banco de dados e verifica as credenciais durante o login.
-* registerable: Permite que os usuários se registrem, atualizem e excluam suas contas. Também gerencia o fluxo de registro de novos usuários.
-* recoverable: Fornece a funcionalidade de recuperação de senha, enviando e-mails com instruções para redefinir a senha esquecida.
-* rememberable: Permite que os usuários sejam lembrados por um determinado período sem precisar fazer login novamente. Isso é feito através de cookies seguros.
-* validatable: Realiza a validação automática de e-mail e senha ao registrar ou atualizar um usuário, garantindo que as credenciais estejam no formato correto.
-* encrypted_password: É o campo no banco de dados que armazena a senha do usuário de forma criptografada, garantindo segurança no armazenamento das senhas.
+- **Debug**: 
+  - Ferramenta de depuração que permite adicionar breakpoints e inspecionar o código durante o desenvolvimento e teste da aplicação. Compatível com várias plataformas Ruby.
+
+### Gems para Autenticação
+
+- **Devise (~> 4.9)**: 
+  - Sistema completo de autenticação para Rails. O Devise fornece soluções rápidas e seguras para implementar login, logout, recuperação de senha e outras funcionalidades relacionadas à autenticação de usuários.
+
+### Agrupamento de Gems
+
+- **group :development, :test**: 
+  - Gems dentro desse grupo serão instaladas apenas nos ambientes de desenvolvimento e teste.
+
+- **group :development**: 
+  - Gems deste grupo serão instaladas exclusivamente no ambiente de desenvolvimento.
+
+### Instruções para Variáveis de Ambiente
+
+Recomendamos o uso de variáveis de ambiente para armazenar informações sensíveis como o `username`, `password`, `host` e `port` do banco de dados. Veja mais no arquivo `config/database.yml`.
+
+### Executando a Aplicação
+
+Após instalar as dependências com `bundle install`, você pode iniciar o servidor utilizando:
+
+```bash
+rails server
+
