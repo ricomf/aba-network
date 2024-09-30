@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_27_150624) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_27_212557) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -47,6 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_150624) do
     t.bigint "record_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "post_id", null: false
+    t.index ["post_id"], name: "index_attachments_on_post_id"
     t.index ["record_type", "record_id"], name: "index_attachments_on_record"
   end
 
@@ -110,12 +112,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_150624) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.json "tokens"
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "attachments", "posts"
   add_foreign_key "post_users", "posts"
   add_foreign_key "post_users", "users"
+  add_foreign_key "users", "companies"
 end
