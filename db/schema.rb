@@ -112,6 +112,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_212557) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_users_on_company_id"
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.json "tokens"
@@ -122,6 +124,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_212557) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "post_users", "posts"
+  add_foreign_key "post_users", "users"
+  add_foreign_key "users", "companies"
   add_foreign_key "attachments", "posts"
   add_foreign_key "comments", "posts"
 end

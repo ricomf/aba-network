@@ -13,6 +13,7 @@ class User < ApplicationRecord
 
   enum role: { user: 0, moderator: 1 }
 
+  belongs_to :company
   has_many :post_users, dependent: :destroy
   has_many :posts, through: :post_users
 
@@ -24,7 +25,7 @@ class User < ApplicationRecord
       errors.add(:email, "deve ser de um domínio válido (#{allowed_domain})")
     end
   end
-  
+
   def password_complexity
     return if password.blank?
     unless password.match(/\A(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).+\z/)
