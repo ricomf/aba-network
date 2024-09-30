@@ -33,4 +33,5 @@ class User < ApplicationRecord
       errors.add(:password, "deve conter pelo menos uma letra maiúscula, um número e um caractere especial")
     end
   end
+  
 end
