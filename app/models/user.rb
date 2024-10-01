@@ -11,7 +11,6 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validate :email_domain_check
-  validates :password, presence: true, length: { minimum: 8 }
   validate :password_complexity
 
   enum role: { user: 0, moderator: 1 }
