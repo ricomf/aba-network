@@ -1,39 +1,52 @@
-# Company.destroy_all
-# User.destroy_all
-# Post.destroy_all
-# PostUser.destroy_all
 # Comment.destroy_all
+# Post.destroy_all
+# User.destroy_all
+# Domain.destroy_all
+# Company.destroy_all
+# CompanyDomain.destroy_all
 
-#Company
-company1 = Company.create!(name: "Empresa 1", cnpj: "11111111111111")
-company2 = Company.create!(name: "Empresa 2", cnpj: "22222222222222")
+# puts "Conteúdo deletado com sucesso!"
 
-#User
+domain_softex = Domain.create!(
+  domain_url: "softex.com"
+)
+
+softex = Company.create!(
+  name: "Softex",
+  cnpj: "12312312312312"
+)
+
+CompanyDomain.create!(
+  company: softex,
+  domain: domain_softex
+)
+
+# User
 user1 = User.create!(
   name: "Alice",
-  email: "alice@exemplo.com",
+  email: "alice@softex.com",
   password: "Password123@",
-  role: :user,
+  role: :user,    
   admin: false,
-  company: company2
+  company: softex
 )
 
 user2 = User.create!(
   name: "Bob",
-  email: "bob@exemplo.com",
+  email: "bob@softex.com",
   password: "Password123@",
-  role: :moderator,
+  role: :moderator,  
   admin: false,
-  company: company2
+  company: softex
 )
 
 user3 = User.create!(
   name: "Charlie",
-  email: "charlie@exemplo.com",
+  email: "charlie@softex.com",
   password: "Password123@",
-  role: :user,
+  role: :user,   
   admin: false,
-  company: company1
+  company: softex
 )
 
 # Post
@@ -47,8 +60,9 @@ PostUser.create!(user: user1, post: post3)
 PostUser.create!(user: user2, post: post1)
 PostUser.create!(user: user2, post: post2)
 PostUser.create!(user: user3, post: post3)
+PostUser.create!(user: user4, post: post2)
 
-# Comentários
+
 Comment.create!(content: "Ótimo post!", user_id: user1.id, commentable: post1)
 Comment.create!(content: "Concordo com esse conteúdo!", user_id: user3.id, commentable: post1)
 Comment.create!(content: "Esse post precisa de mais detalhes.", user_id: user3.id, commentable: post2)
