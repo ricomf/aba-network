@@ -136,6 +136,8 @@ GEM
       stringio
     puma (5.6.8)
       nio4r (~> 2.0)
+    pundit (2.4.0)
+      activesupport (>= 3.0.0)
     racc (1.8.1)
     rack (2.2.9)
     rack-test (2.1.0)
@@ -203,6 +205,7 @@ DEPENDENCIES
   devise_token_auth
   pg (~> 1.1)
   puma (~> 5.0)
+  pundit (~> 2.4)
   rails (~> 7.0.8, >= 7.0.8.4)
   tzinfo-data
 
