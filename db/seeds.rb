@@ -1,11 +1,14 @@
-Comment.destroy_all
-Post.destroy_all
-User.destroy_all
-Domain.destroy_all
-Company.destroy_all
-CompanyDomain.destroy_all
-
-puts "Conteúdo deletado com sucesso!"
+if Rails.env.development?
+  Comment.destroy_all
+  Post.destroy_all
+  User.destroy_all
+  Domain.destroy_all
+  Company.destroy_all
+  CompanyDomain.destroy_all
+  puts "Conteúdo deletado com sucesso!"
+else
+  puts "Esta operação não pode ser executada fora do ambiente de desenvolvimento."
+end
 
 domain_softex = Domain.create!(
   domain_url: "softex.com"
