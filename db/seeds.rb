@@ -6,8 +6,6 @@ if Rails.env.development?
   Company.destroy_all
   CompanyDomain.destroy_all
   puts "Conteúdo deletado com sucesso!"
-else
-  puts "Esta operação não pode ser executada fora do ambiente de desenvolvimento."
 end
 
 domain_softex = Domain.create!(
