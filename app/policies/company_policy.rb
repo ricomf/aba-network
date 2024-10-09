@@ -11,7 +11,8 @@ class CompanyPolicy < ApplicationPolicy
   end
 
   def show?
-    current_user.present? && current_user.admin?  end
+    current_user.present? && current_user.admin?  
+  end
 
   def create?
     current_user.admin?  
