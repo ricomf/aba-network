@@ -9,4 +9,3 @@ class CommentSerializer < ApplicationSerializer
     base_data.merge(serialize_timestamps(comment))
     end
 end
-  
