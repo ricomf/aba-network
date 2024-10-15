@@ -7,7 +7,7 @@ class UserPolicy
   end
 
   def index?
-    current_user.admin?  # Apenas administradores podem listar usuários
+    true
   end
 
   def show?
