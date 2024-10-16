@@ -1,11 +1,6 @@
 class CompanyPolicy < ApplicationPolicy
   attr_reader :current_user, :company
 
-  def initialize(current_user, company)
-    @current_user = current_user
-    @company = company
-  end
-
   def index?
     current_user.admin?  
   end
@@ -40,5 +35,4 @@ class CompanyPolicy < ApplicationPolicy
       end
     end
   end
-
 end

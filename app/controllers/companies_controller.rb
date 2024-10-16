@@ -1,7 +1,4 @@
 class CompaniesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :company, only: [:show] 
-  before_action :authorize_company, only: [:show]
 
   def index
     @companies = policy_scope(Company)
@@ -9,6 +6,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
+    authorize_company
     render json: company
   end
 
@@ -21,5 +19,4 @@ class CompaniesController < ApplicationController
   def authorize_company
     authorize company
   end
-
 end
