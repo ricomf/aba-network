@@ -1,12 +1,6 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
-  include Pundit::Authorization
+  include Pundit::Authorization 
     
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
-  private
-
-  def user_not_authorized
-    render json: { error: 'Você não tem permissão para acessar esta página.' }, status: :forbidden
-  end
+  before_action :authenticate_user!, unless: :devise_controller?
 end
