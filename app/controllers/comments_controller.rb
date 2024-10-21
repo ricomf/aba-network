@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
   
   def create
     @comment = Comment.new(permitted_attributes(Comment))
-    
+
     if params[:post_id]
       @comment.commentable = Post.find(params[:post_id])
     elsif params[:comment_id]
@@ -21,9 +21,9 @@ class CommentsController < ApplicationController
     else
       return render json: { error: 'O comentário deve estar associado a uma postagem ou outro comentário'}, status: :unprocessable_entity
     end
-    
+
     authorize @comment
-  
+
     if @comment.save
       render json: CommentSerializer.call(@comment), status: :created
     else

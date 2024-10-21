@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :posts, only: [:index, :show]
+  resources :companies, only: [:index, :show] 
   mount_devise_token_auth_for 'User', at: 'auth'
-
+  
   resources :posts do
     resources :comments, only: [:show, :index, :create, :update]
   end
@@ -9,5 +10,9 @@ Rails.application.routes.draw do
     resources :comments, only: [:show, :index, :create, :update]
   end
 
-  resources :companies, only: [:index, :show] 
+  
+  # Defines the root path route ("/")
+  # root "articles#index"
+  #
+  # get 'users', to: 'users#index'
 end
