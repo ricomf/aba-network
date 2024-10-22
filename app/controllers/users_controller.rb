@@ -16,6 +16,6 @@ class UsersController < ApplicationController
   
   # Usado para buscar o usuário antes das ações específicas
   def set_user
-    @user = User.find(params[:id])
+    @user ||= User.find(params[:id])
   end
 end

@@ -11,7 +11,7 @@ class UserPolicy
   end
 
   def show?
-    current_user.admin? || current_user == user  # Admins ou o próprio usuário podem ver seus dados
+    true
   end
 
   def update?

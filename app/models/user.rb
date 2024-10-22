@@ -18,10 +18,6 @@ class User < ApplicationRecord
   has_many :posts, through: :post_users
   has_many :comments, dependent: :destroy
   belongs_to :company
-
-  def admin?
-    admin
-  end
   
   private
 
