@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # Defina suas rotas personalizadas depois
   resources :posts, only: [:index, :show]
   resources :comments, only: [:index, :show]
-  resources :users, only: [:index, :show]
+  resources :users, except: :destroy
   resources :companies, only: [:index, :show] 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 end
