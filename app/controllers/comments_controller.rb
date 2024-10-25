@@ -1,42 +1,33 @@
 class CommentsController < ApplicationController
-  before_action :commentable, only: %i[show update]
-  before_action :comment, only: %i[show update]
-
+  # GET /posts/:post_id/comments or /comments/:comment_id/comments
   def index
-    @comments = policy_scope(Comment).order(created_at: :desc)
-    render json: @comments.map { |comment| CommentSerializer.call(comment) }
+       post_comments = policy_scope(Comment).where(commentable_type: 'Post').order(created_at: :desc)
+       comment_replies = policy_scope(Comment).where(commentable_type: 'Comment').order(created_at: :desc)
+       
+       render json: {
+         post_comments: post_comments.map { |comment| CommentSerializer.call(comment) },
+         comment_replies: comment_replies.map { |comment| CommentSerializer.call(comment) }
+       }
   end
 
+  # GET /posts/:post_id/comments/:id or /comments/:comment_id/comments/:id
   def show
     authorize comment
-    render json: CommentSerializer.call(@comment)
+    render json: CommentSerializer.call(comment)
   end
-  
+
+  #POST /posts/:post_id/comments or /comments/:comment_id/comments
   def create
-    @comment = Comment.create(
-      permitted_attributes(Comment).merge(
-        user: current_user,
-        commentable: commentable
-      )
-    )
-
-    authorize comment 
-
-    if comment.persisted?
-      render json: CommentSerializer.call(comment), status: :created
-    else
-      render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
-    end
+    comment = commentable.comments.create(permitted_attributes(Comment).merge(user: current_user)) 
+    authorize comment
+    render json: CommentSerializer.call(comment), status: :created
   end
 
-  def update 
-    authorize comment  
-
-    if comment.update(permitted_attributes(Comment)) 
-      render json: CommentSerializer.call(comment), status: :ok
-    else
-      render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
-    end
+  # PATCH /posts/:post_id/comments/:id or /comments/:comment_id/comments/:id
+  def update
+    authorize comment
+    comment.update!(permitted_attributes(Comment))
+    render json: CommentSerializer.call(comment), status: :ok
   end
 
   private
@@ -46,10 +37,12 @@ class CommentsController < ApplicationController
                        Post.find_by(id: params[:post_id])
                      elsif params[:comment_id]
                        Comment.find_by(id: params[:comment_id])
+                     else 
+                        raise ActionController::ParameterMissing, 'Commentable not found.'
                      end
   end
 
   def comment
-    @comment ||= (commentable ? commentable.comments.find_by(id: params[:id]) : Comment.find_by(id: params[:id]))
+    @comment ||= commentable.comments.find_by(id: params[:id])
   end
 end
