@@ -12,10 +12,16 @@ class UserPolicy < ApplicationPolicy
     end
   
     def create?
-      true
+      user.admin?
     end
   
     def permitted_attributes
       [:name, :email, :password, :role, :admin, :company_id]
+    end
+
+    class Scope < ApplicationPolicy::Scope
+      def resolve
+        scope.all
+      end
     end
 end
