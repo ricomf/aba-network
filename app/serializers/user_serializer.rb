@@ -11,4 +11,3 @@ class UserSerializer < ApplicationSerializer
       base_data.merge(serialize_timestamps(user))
     end
   end
-  
