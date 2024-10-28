@@ -4,7 +4,7 @@ class UserSerializer < ApplicationSerializer
       base_data = {
         name: user.name,
         email: user.email,
-        role: user.role
+        role: user.role,
         admin: user.admin
       }
   
