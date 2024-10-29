@@ -9,7 +9,7 @@ class User < ApplicationRecord
   
   validates :name, presence: true, length: { minimum: 2, maximum: 50 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
-  validate :email_domain_check
+  # validate :email_domain_check
   validate :password_complexity
 
   enum role: { user: 0, moderator: 1, admin: 2 }
@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   def email_domain_check
     allowed_domains = company.domains.pluck(:domain_url)
-
+    binding.pry
     unless allowed_domains.any? { |domain| email.ends_with?("@#{domain}") }
       errors.add(:email, "deve ser de um domínio válido")
     end
