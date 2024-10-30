@@ -19,6 +19,10 @@ class CompanyPolicy < ApplicationPolicy
     user.admin?  
   end
 
+  def permitted_attributes
+    [:name, :cnpj]
+  end
+
   class Scope < Scope
     def initialize(user, scope)
       @user = user
