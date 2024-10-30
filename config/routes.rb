@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   resources :companies, only: [:index, :show] 
   
   resources :posts do
-    resources :comments, only: [:show, :index, :create, :update]
+    resources :comments, only: [:show, :index, :create, :update, :destroy]
   end
   resources :comments do
-    resources :comments, only: [:show, :index, :create, :update]
+    resources :comments, only: [:show, :index, :create, :update, :destroy]
   end
 end

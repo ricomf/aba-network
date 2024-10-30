@@ -29,6 +29,11 @@ class CommentsController < ApplicationController
     render json: CommentSerializer.call(comment), status: :ok
   end
 
+  def destroy
+    authorize comment
+    comment.destroy!
+  end
+
   private
 
   def commentable
