@@ -14,14 +14,19 @@ class UsersController < ApplicationController
 
   def create
     authorize User
-    @user = User.create(permitted_attributes(User))
-
-    render json: UserSerializer.call(user), status: :created
+    
+    begin
+      @user = User.create!(permitted_attributes(User))
+      render json: UserSerializer.call(@user), status: :created
+    rescue ActiveRecord::RecordInvalid => e
+      render json: { errors: e.record.errors }, status: :unprocessable_entity
+    end
   end
+  
 
   def update
     authorize user
-    user.update!(permitted_attributes(User))  
+    user.update!(permitted_attributes(User))
 
     render json: UserSerializer.call(user), status: :ok
   end
