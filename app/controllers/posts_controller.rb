@@ -22,6 +22,11 @@ class PostsController < ApplicationController
     render json: PostSerializer.call(post), status: :ok
   end
 
+  def destroy
+    authorize post
+    post.destroy
+  end
+
   private
 
   def post

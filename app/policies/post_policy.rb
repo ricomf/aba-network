@@ -19,6 +19,10 @@ class PostPolicy < ApplicationPolicy
     user.present? && record.users.include?(user)
   end
 
+  def destroy?
+    user.present? && record.users.include?(user)
+  end
+
   def permitted_attributes
     [:content, :user_id, :published]
   end
