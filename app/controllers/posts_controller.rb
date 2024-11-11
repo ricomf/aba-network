@@ -1,30 +1,30 @@
 class PostsController < ApplicationController
   def index
-    set_post = policy_scope(Post).order(created_at: :desc)
-    render json: set_post.map { |post| PostSerializer.call(post) }
+    post = policy_scope(Post).order(created_at: :desc)
+    render json: post.map { |post| PostSerializer.call(post) }
   end
 
   def show
-    authorize set_post
-    render json: PostSerializer.call(set_post)
+    authorize post
+    render json: PostSerializer.call(post)
   end
 
   def create
-    post = Post.create(permitted_attributes(Post))
+    post = Post.create!(permitted_attributes(Post))
     authorize post
-    post.users << current_user
+    post.post_users.create!(user_id: current_user.id, owner_boolean: true)
     render json: PostSerializer.call(post), status: :created
   end
 
   def update
-    authorize set_post
-    set_post.update!(permitted_attributes(Post))
-    render json: PostSerializer.call(set_post), status: :ok
+    authorize post
+    post.update!(permitted_attributes(Post))
+    render json: PostSerializer.call(post), status: :ok
   end
 
   private
 
-  def set_post
+  def post
     @post ||= Post.find(params[:id])
   end
 end
