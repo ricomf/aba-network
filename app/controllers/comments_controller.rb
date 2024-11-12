@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
   # GET /posts/:post_id/comments or /comments/:comment_id/comments
   def index
-    comments = policy_scope(Comment).order(created_at: :desc)
-    
+    comments = policy_scope(Comment)
+                .where(commentable: commentable)
+                .order(created_at: :desc)
     render json: comments.map { |comment| CommentSerializer.call(comment) }
   end
 
@@ -32,6 +33,7 @@ class CommentsController < ApplicationController
   def destroy
     authorize comment
     comment.destroy!
+    render_deletion_message('Comment')
   end
 
   private
