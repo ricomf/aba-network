@@ -48,6 +48,6 @@ class CommentsController < ApplicationController
   end
 
   def comment
-    @comment ||= commentable.comments.find_by(id: params[:id]) || (raise ActiveRecord::RecordNotFound, "Comment not found")
+    @comment ||= commentable.comments.find_by(id: params[:id])
   end
 end
