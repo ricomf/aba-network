@@ -16,6 +16,9 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
+  
+production:
+  <<: *default
   database: dbaba
   username: dbaba_user
   password: <%= ENV["ABA_NETWORK_DATABASE_PASSWORD"] %>
