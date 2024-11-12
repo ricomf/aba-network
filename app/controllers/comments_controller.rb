@@ -10,15 +10,14 @@ class CommentsController < ApplicationController
   # GET /posts/:post_id/comments/:id or /comments/:comment_id/comments/:id
   def show
     authorize comment
-    
     render json: CommentSerializer.call(comment)
   end
 
-  #POST /posts/:post_id/comments or /comments/:comment_id/comments
+  # POST /posts/:post_id/comments or /comments/:comment_id/comments
   def create
     comment = commentable.comments.create(permitted_attributes(Comment).merge(user: current_user)) 
     authorize comment
-    
+
     render json: CommentSerializer.call(comment), status: :created
   end
 
@@ -26,14 +25,13 @@ class CommentsController < ApplicationController
   def update
     authorize comment
     comment.update!(permitted_attributes(Comment))
-    
+
     render json: CommentSerializer.call(comment), status: :ok
   end
 
   def destroy
     authorize comment
     comment.destroy!
-    render_deletion_message('Comment')
   end
 
   private
@@ -49,6 +47,6 @@ class CommentsController < ApplicationController
   end
 
   def comment
-    @comment ||= commentable.comments.find_by(id: params[:id])
+    @comment ||= commentable.comments.find_by(id: params[:id]) || (raise ActiveRecord::RecordNotFound, "Comment not found")
   end
 end

@@ -16,11 +16,11 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def update?
-    user.present? && (user == record.user || user.admin?)
+    user.present? && (user == record.user || user.admin? || user.moderator?)
   end
   
   def destroy?
-    user.present? && (user == record.user || user.admin?)
+    user.present? && (user == record.user || user.admin? || user.moderator?)
   end
 
   def permitted_attributes

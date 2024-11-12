@@ -45,7 +45,7 @@ user3 = User.create!(
   name: "Charlie",
   email: "charlie@softex.com",
   password: "Password123@",
-  role: :user,   
+  role: :admin,   
   admin: true,
   company: softex
 )
