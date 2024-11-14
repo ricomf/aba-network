@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  root to: proc { [200, { 'Content-Type' => 'application/json' }, [{ message: 'API está ativa' }.to_json]] }
+  
   mount_devise_token_auth_for 'User', at: 'auth'
 
+  resources :companies, except: :destroy
   resources :posts, only: [:index, :show, :create, :update, :destroy]
-  resources :companies, only: [:index, :show]
   resources :users, except: :destroy
   
   resources :posts do
