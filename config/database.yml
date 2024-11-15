@@ -2,7 +2,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-
+  
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -16,10 +16,3 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  
-production:
-  <<: *default
-  database: aba_db_vprs
-  username: aba_db_vprs_user
-  password: <%= ENV["ABA_NETWORK_DATABASE_PASSWORD"] %>
-  
