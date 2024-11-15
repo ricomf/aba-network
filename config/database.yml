@@ -19,7 +19,7 @@ production:
   
 production:
   <<: *default
-  database: dbaba
-  username: dbaba_user
+  database: aba_db_vprs
+  username: aba_db_vprs_user
   password: <%= ENV["ABA_NETWORK_DATABASE_PASSWORD"] %>
   
